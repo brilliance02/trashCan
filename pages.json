@@ -1,0 +1,57 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/recognition/recognition",
+			"style": {
+				"navigationBarTitleText": "垃圾识别"
+			}
+		},
+		{
+		    "path" : "pages/location/location",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "附近垃圾桶",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		},
+		{
+		    "path" : "pages/home/home",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "个人中心",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		}
+	],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "uni-app",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8"
+	},
+	"tabBar": {
+		"color": "#8a8a8a",
+		"selectedColor": "#40974c",
+		"borderStyle": "black",
+		"backgroundColor": "#fff",
+		"list": [{
+			"pagePath": "pages/recognition/recognition",
+			"iconPath": "static/recognition1.png",
+			"selectedIconPath": "static/recogintion.png",
+			"text": "垃圾识别"
+		}, {
+			"pagePath": "pages/location/location",
+			"iconPath": "static/location.png",
+			"selectedIconPath": "static/location1.png",
+			"text": "附近垃圾桶"
+		},
+		{
+			"pagePath": "pages/home/home",
+			"iconPath": "static/icon-person-renwu (1).png",
+			"selectedIconPath": "static/icon-person-renwu (2).png",
+			"text": "个人中心"
+		}]
+	}
+}
