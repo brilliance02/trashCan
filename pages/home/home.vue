@@ -1,3 +1,4 @@
+//此页面为垃圾识别页面的另一个版本
 <template>
 	<view>
 		<view class="title">

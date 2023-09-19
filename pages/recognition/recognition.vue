@@ -12,12 +12,12 @@
 					<image class="item" src="../../static/pic2.jpg" mode="aspectFill"></image>
 				</swiper-item>
 				<swiper-item>
-					<image class="item" src="../../static/pic4.jfif" mode="aspectFill"></image>
+					<image class="item" src="../../static/pic4.jpg" mode="aspectFill"></image>
 				</swiper-item>
 			</swiper>
 		</view>
-		<uni-search-bar radius="5" placeholder="文字搜索识别" clearButton="auto" cancelButton="auto" @confirm="search" />
-		<view class="btn">
+		<!-- <uni-search-bar radius="5" placeholder="文字搜索识别" clearButton="auto" cancelButton="auto" @confirm="search" /> -->
+		<!-- <view class="btn">
 			<view class="item">
 				<view class="text">
 					拍照识别
@@ -36,6 +36,33 @@
 				</view>
 				<image src="../../static/语音 (1).png" mode="scaleToFill" style="width: 70px;height: 73px; position: absolute; right: 60px;bottom: 70px;"></image>
 			</view>
+		</view> -->
+		<view class="top" style="margin-top: 30px;" @click="textSearch">
+			<view class="text">
+				文字搜索
+			</view>
+			<view class="text2">
+				search with text
+			</view>
+			<image src="../../static/文字2.png" mode="scaleToFill" style="width: 70px;height: 70px; position: absolute; right: 60px;top: 35px;"></image>
+		</view>
+		<view class="top" @click="pictureSearch">
+			<view class="text">
+				拍照识别
+			</view>
+			<view class="text2">
+				search with picture
+			</view>
+			<image src="../../static/相机.png" mode="scaleToFill" style="width: 80px;height: 70px; position: absolute; right: 55px;top: 35px;"></image>
+		</view>
+		<view class="top" @click="voiceSearch">
+			<view class="text">
+				语音识别
+			</view>
+			<view class="text2">
+				search with voice
+			</view>
+			<image src="../../static/语音 (1).png" mode="scaleToFill" style="width: 70px;height: 70px; position: absolute; right: 60px;top: 35px;"></image>
 		</view>
 	</view>
 </template>
@@ -47,12 +74,21 @@
 			}
 		},
 		methods: {
-			search(res) {
-				uni.showToast({
-					title: '搜索：' + res.value,
-					icon: 'none'
-				})
+			textSearch(){
+				uni.navigateTo({
+					url: '/pages/recognition/textSearch/textSearch'
+				});
 			},
+			pictureSearch(){
+				uni.navigateTo({
+					url: '/pages/recognition/pictureSearch/pictureSearch'
+				});
+			},
+			voiceSearch(){
+				uni.navigateTo({
+					url: '/pages/recognition/voiceSearch/voiceSearch'
+				});
+			}
 		}
 	}
 </script>
@@ -66,20 +102,31 @@
 	width: 100%;
 }
 .uni-margin-wrap{
-	margin-bottom: 10px;
+	// margin-bottom: 10px;
 }
-.btn{
-	display: flex;
-	justify-content: center;
-	gap:12px;
+// .btn{
+// 	display: flex;
+// 	justify-content: center;
+// 	gap:12px;
+// 	margin-top: 20px;
+// 	.item{
+// 		height: 280px;
+// 		width: 45%;
+// 		border-radius: 10px;
+// 		box-shadow: 0 0 5px #D4D7DE;
+// 		position: relative;
+// 	}
+// }
+.top{
+	height: 130px;
+	width: 93%;
+	border-radius: 10px;
+	position: relative;
+	box-shadow: 0 0 5px #D4D7DE;
+	// box-shadow: 0 0 5px #32793c;
+	// border: 2px solid #32793c;
+	margin: 0 auto;
 	margin-top: 20px;
-	.item{
-		height: 280px;
-		width: 45%;
-		border-radius: 10px;
-		box-shadow: 0 0 5px #D4D7DE;
-		position: relative;
-	}
 }
 .text{
 	display: inline-block;

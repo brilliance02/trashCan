@@ -23,6 +23,33 @@
 		        "enablePullDownRefresh": false
 		    }
 		    
+		},
+		{
+		    "path" : "pages/recognition/textSearch/textSearch",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "文字搜索",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		},
+		{
+		    "path" : "pages/recognition/pictureSearch/pictureSearch",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "拍照识别",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		},
+		{
+		    "path" : "pages/recognition/voiceSearch/voiceSearch",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "语音识别",
+		        "enablePullDownRefresh": false
+		    }
+		    
 		}
 	],
 	"globalStyle": {
@@ -46,12 +73,14 @@
 			"iconPath": "static/location.png",
 			"selectedIconPath": "static/location1.png",
 			"text": "附近垃圾桶"
-		},
-		{
-			"pagePath": "pages/home/home",
-			"iconPath": "static/icon-person-renwu (1).png",
-			"selectedIconPath": "static/icon-person-renwu (2).png",
-			"text": "个人中心"
-		}]
+		}
+		// ,
+		// {
+		// 	"pagePath": "pages/home/home",
+		// 	"iconPath": "static/icon-person-renwu (1).png",
+		// 	"selectedIconPath": "static/icon-person-renwu (2).png",
+		// 	"text": "个人中心"
+		// }
+		]
 	}
 }
