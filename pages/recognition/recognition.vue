@@ -17,7 +17,7 @@
 			</swiper>
 		</view>
 		<!-- <uni-search-bar radius="5" placeholder="文字搜索识别" clearButton="auto" cancelButton="auto" @confirm="search" /> -->
-		<!-- <view class="btn">
+		<view class="btn">
 			<view class="item">
 				<view class="text">
 					拍照识别
@@ -25,7 +25,7 @@
 				<view class="text2">
 					search with picture
 				</view>
-				<image src="../../static/相机.png" mode="scaleToFill" style="width: 80px;height: 70px; position: absolute; right: 50px;bottom: 70px;"></image>
+				<image src="../../static/相机.png" mode="scaleToFill" style="width: 80px;height: 70px; position: absolute; right: 50px;bottom: 40px;"></image>
 			</view>
 			<view class="item">
 				<view class="text">
@@ -34,10 +34,10 @@
 				<view class="text2">
 					search with voice
 				</view>
-				<image src="../../static/语音 (1).png" mode="scaleToFill" style="width: 70px;height: 73px; position: absolute; right: 60px;bottom: 70px;"></image>
+				<image src="../../static/语音 (1).png" mode="scaleToFill" style="width: 70px;height: 73px; position: absolute; right: 60px;bottom: 40px;"></image>
 			</view>
-		</view> -->
-		<view class="top" style="margin-top: 30px;" @click="textSearch">
+		</view>
+		<!-- <view class="top" style="margin-top: 30px;" @click="textSearch">
 			<view class="text">
 				文字搜索
 			</view>
@@ -63,7 +63,7 @@
 				search with voice
 			</view>
 			<image src="../../static/语音 (1).png" mode="scaleToFill" style="width: 70px;height: 70px; position: absolute; right: 60px;top: 35px;"></image>
-		</view>
+		</view> -->
 	</view>
 </template>
 
@@ -104,19 +104,21 @@
 .uni-margin-wrap{
 	// margin-bottom: 10px;
 }
-// .btn{
-// 	display: flex;
-// 	justify-content: center;
-// 	gap:12px;
-// 	margin-top: 20px;
-// 	.item{
-// 		height: 280px;
-// 		width: 45%;
-// 		border-radius: 10px;
-// 		box-shadow: 0 0 5px #D4D7DE;
-// 		position: relative;
-// 	}
-// }
+
+.btn{
+	display: flex;
+	justify-content: center;
+	gap:12px;
+	margin-top: 20px;
+	.item{
+		height: 220px;
+		width: 45%;
+		border-radius: 10px;
+		box-shadow: 0 0 5px #D4D7DE;
+		position: relative;
+	}
+}
+
 .top{
 	height: 130px;
 	width: 93%;
