@@ -18,44 +18,47 @@
 		</view>
 		<!-- <uni-search-bar radius="5" placeholder="文字搜索识别" clearButton="auto" cancelButton="auto" @confirm="search" /> -->
 		<view class="btn">
-			<view class="item">
+			<view class="item" @click="textSearch">
+				<view class="text">
+					文字搜索
+				</view>
+				<view class="text2">
+					search with text
+				</view>
+				<image src="../../static/文字2.png" mode="scaleToFill" style="width: 70px;height: 73px; position: absolute; right: 60px;bottom: 25px;"></image>
+			</view>
+			<view class="item" @click="pictureSearch">
 				<view class="text">
 					拍照识别
 				</view>
 				<view class="text2">
 					search with picture
 				</view>
-				<image src="../../static/相机.png" mode="scaleToFill" style="width: 80px;height: 70px; position: absolute; right: 50px;bottom: 40px;"></image>
-			</view>
-			<view class="item">
-				<view class="text">
-					语音识别
-				</view>
-				<view class="text2">
-					search with voice
-				</view>
-				<image src="../../static/语音 (1).png" mode="scaleToFill" style="width: 70px;height: 73px; position: absolute; right: 60px;bottom: 40px;"></image>
+				<image src="../../static/相机.png" mode="scaleToFill" style="width: 80px;height: 70px; position: absolute; right: 50px;bottom: 25px;"></image>
 			</view>
 		</view>
-		<!-- <view class="top" style="margin-top: 30px;" @click="textSearch">
+		<view class="top" @click="detail">
 			<view class="text">
-				文字搜索
+				垃圾桶详情
 			</view>
 			<view class="text2">
-				search with text
+				trash bin details
 			</view>
-			<image src="../../static/文字2.png" mode="scaleToFill" style="width: 70px;height: 70px; position: absolute; right: 60px;top: 35px;"></image>
+			<image 
+			src="../../static/任务详情.png" 
+			mode="scaleToFill" 
+			style="width: 85px;height: 85px; position: absolute; right: 50px;top: 20px;"></image>
 		</view>
-		<view class="top" @click="pictureSearch">
+		<view class="top" @click="knowledge">
 			<view class="text">
-				拍照识别
+				分类常识
 			</view>
 			<view class="text2">
-				search with picture
+				garbage sorting knowledge
 			</view>
-			<image src="../../static/相机.png" mode="scaleToFill" style="width: 80px;height: 70px; position: absolute; right: 55px;top: 35px;"></image>
+			<image src="../../static/knowledge.png" mode="scaleToFill" style="width: 80px;height: 80px; position: absolute; right: 50px;top: 20px;"></image>
 		</view>
-		<view class="top" @click="voiceSearch">
+		<!-- <view class="top" @click="voiceSearch">
 			<view class="text">
 				语音识别
 			</view>
@@ -84,9 +87,14 @@
 					url: '/pages/recognition/pictureSearch/pictureSearch'
 				});
 			},
-			voiceSearch(){
+			detail(){
 				uni.navigateTo({
-					url: '/pages/recognition/voiceSearch/voiceSearch'
+					url: '/pages/recognition/details/detailshome'
+				});
+			},
+			knowledge(){
+				uni.navigateTo({
+					url: '/pages/recognition/knowledge/knowledge'
 				});
 			}
 		}
@@ -96,6 +104,7 @@
 <style scoped lang="scss">
 .body{
 	// background-color: #40974c;
+	padding-bottom: 15px;
 }
 .uni-margin-wrap,.swiper,.item{
 	height: 200px;
@@ -111,7 +120,7 @@
 	gap:12px;
 	margin-top: 20px;
 	.item{
-		height: 220px;
+		height: 200px;
 		width: 45%;
 		border-radius: 10px;
 		box-shadow: 0 0 5px #D4D7DE;
@@ -120,7 +129,7 @@
 }
 
 .top{
-	height: 130px;
+	height: 125px;
 	width: 93%;
 	border-radius: 10px;
 	position: relative;
@@ -128,7 +137,7 @@
 	// box-shadow: 0 0 5px #32793c;
 	// border: 2px solid #32793c;
 	margin: 0 auto;
-	margin-top: 20px;
+	margin-top: 15px;
 }
 .text{
 	display: inline-block;
