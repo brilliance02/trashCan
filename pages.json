@@ -16,7 +16,7 @@
 		    
 		},
 		{
-		    "path" : "pages/home/home",
+		    "path" : "pages/question/question",
 		    "style" :                                                                                    
 		    {
 		        "navigationBarTitleText": "个人中心",
@@ -51,7 +51,34 @@
 		    }
 		    
 		}
-	],
+	    ,{
+            "path" : "pages/recognition/details/detailshome",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "垃圾桶详情",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+		,{
+		    "path" : "pages/recognition/details/detail",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "垃圾桶详情",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		}
+        ,{
+            "path" : "pages/recognition/knowledge/knowledge",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "分类常识",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+    ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",
@@ -74,13 +101,13 @@
 			"selectedIconPath": "static/location1.png",
 			"text": "附近垃圾桶"
 		}
-		// ,
-		// {
-		// 	"pagePath": "pages/home/home",
-		// 	"iconPath": "static/icon-person-renwu (1).png",
-		// 	"selectedIconPath": "static/icon-person-renwu (2).png",
-		// 	"text": "个人中心"
-		// }
+		,
+		{
+			"pagePath": "pages/question/question",
+			"iconPath": "static/icon-person-renwu (1).png",
+			"selectedIconPath": "static/icon-person-renwu (2).png",
+			"text": "答题界面"
+		}
 		]
 	}
 }

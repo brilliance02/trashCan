@@ -1,3 +1,4 @@
+<!-- 语音识别，有时间加上 -->
 <template>
 	<view>
 		<view class="result" v-if="show">
