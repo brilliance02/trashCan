@@ -21,7 +21,7 @@
 		</view>
 		<view class="noSearch" v-if="!show">
 			<image 
-				src="../../../static/缺省页_搜索无结果.png" 
+				src="../../../static/none.png" 
 				mode="aspectFill" 
 				></image>
 		</view>
@@ -34,7 +34,7 @@
 		data() {
 			return {
 				show:true,
-				src:'../../../static/4.png',
+				src:'../../../static/3.png',
 				text:'此垃圾属于厨余垃圾'
 			}
 		},
