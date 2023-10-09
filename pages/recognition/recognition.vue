@@ -20,21 +20,21 @@
 		<view class="btn">
 			<view class="item" @click="textSearch">
 				<view class="text">
-					文字搜索
+					垃圾检索
 				</view>
 				<view class="text2">
-					search with text
+					garbage retrieval
 				</view>
-				<image src="../../static/文字2.png" mode="scaleToFill" style="width: 70px;height: 73px; position: absolute; right: 60px;bottom: 25px;"></image>
+				<image src="../../static/text.png" mode="scaleToFill" style="width: 70px;height: 73px; position: absolute; right: 60px;bottom: 25px;"></image>
 			</view>
 			<view class="item" @click="pictureSearch">
 				<view class="text">
-					拍照识别
+					智能识别
 				</view>
 				<view class="text2">
-					search with picture
+					intelligent identify
 				</view>
-				<image src="../../static/相机.png" mode="scaleToFill" style="width: 80px;height: 70px; position: absolute; right: 50px;bottom: 25px;"></image>
+				<image src="../../static/phonepic.png" mode="scaleToFill" style="width: 80px;height: 70px; position: absolute; right: 50px;bottom: 25px;"></image>
 			</view>
 		</view>
 		<view class="top" @click="detail">
@@ -45,7 +45,7 @@
 				trash bin details
 			</view>
 			<image 
-			src="../../static/任务详情.png" 
+			src="../../static/detail.png" 
 			mode="scaleToFill" 
 			style="width: 85px;height: 85px; position: absolute; right: 50px;top: 20px;"></image>
 		</view>
@@ -129,7 +129,7 @@
 }
 
 .top{
-	height: 125px;
+	height: 110px;
 	width: 93%;
 	border-radius: 10px;
 	position: relative;

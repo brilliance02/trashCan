@@ -16,7 +16,7 @@
 		<view class="noSearch" v-if="!show">
 			<view>
 				<image
-					src="../../../static/缺省页_搜索无结果.png" 
+					src="../../../static/none.png" 
 					mode="aspectFill" 
 					></image>
 				<view class="text">
@@ -28,7 +28,7 @@
 			<view class="item">
 				<view class="img" @click="voice">
 					<image
-						src="../../../static/语音2.png" 
+						src="../../../static/voice.png" 
 						style="width: 50px;height: 50px;"
 						mode="scaleToFill" 
 					></image>

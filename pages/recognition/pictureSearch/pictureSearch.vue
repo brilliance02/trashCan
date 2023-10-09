@@ -15,7 +15,7 @@
 		<view class="noSearch" v-if="!show">
 			<view>
 				<image
-					src="../../../static/缺省页_搜索无结果.png" 
+					src="../../../static/none.png" 
 					mode="aspectFill" 
 					></image>
 				<view class="text">
@@ -36,7 +36,7 @@
 		data() {
 			return {
 				show:false,
-				src:'../../../static/4.png',
+				src:'../../../static/3.png',
 				text:'暂时木有内容呀～～'
 			}
 		},

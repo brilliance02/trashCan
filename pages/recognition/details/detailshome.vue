@@ -3,7 +3,7 @@
 		<view class="result">
 			<view>
 				<image
-					src="../../../static/垃圾分类.png" 
+					src="../../../static/rubbish.png" 
 					mode="scaleToFill"
 					style="width: 100vw;height: 300px;"
 					>
