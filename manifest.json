@@ -1,5 +1,5 @@
 {
-    "name" : "trash",
+    "name" : "垃圾云管家",
     "appid" : "__UNI__EEA9399",
     "description" : "",
     "versionName" : "1.0.0",
@@ -43,7 +43,9 @@
                 ]
             },
             /* ios打包配置 */
-            "ios" : {},
+            "ios" : {
+                "dSYMs" : false
+            },
             /* SDK配置 */
             "sdkConfigs" : {
                 "maps" : {
@@ -51,7 +53,30 @@
                         "appkey_ios" : "1",
                         "appkey_android" : "e2bc36aa425b78888018d94d62ced647"
                     }
+                },
+                "ad" : {}
+            },
+            "icons" : {
+                "android" : {
+                    "hdpi" : "static/logo.png",
+                    "xhdpi" : "static/logo.png",
+                    "xxhdpi" : "static/logo.png",
+                    "xxxhdpi" : "static/logo.png"
+                },
+                "ios" : {
+                    "appstore" : "static/logo.png",
+                    "iphone" : {
+                        "app@2x" : "static/logo.png",
+                        "app@3x" : "static/logo.png",
+                        "spotlight@2x" : "static/logo.png"
+                    },
+                    "ipad" : {
+                        "app" : "static/logo.png"
+                    }
                 }
+            },
+            "splashscreen" : {
+                "androidStyle" : "default"
             }
         }
     },
