@@ -83,7 +83,7 @@
 		    "style" :                                                                                    
 		    {
 		        "navigationBarTitleText": "垃圾桶详情",
-		        "enablePullDownRefresh": false
+		        "enablePullDownRefresh": true
 		    }
 		    
 		}
