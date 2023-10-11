@@ -30,11 +30,10 @@
         ischeck:false,
    			// 表单数据
    			formData: {
-   				account: '123123',
-   				password: '66666666'
+   				account: '',
+   				password: ''
    			},
    			rules: {
-   				// 对name字段进行必填验证
    				account: {
    					rules: [{
    							required: true,
@@ -42,8 +41,8 @@
    						},
    						{
    							minLength: 3,
-   							maxLength: 5,
-   							errorMessage: '姓名长度在 {minLength} 到 {maxLength} 个字符',
+   							maxLength: 11,
+   							errorMessage: '账号长度在 {minLength} 到 {maxLength} 个字符',
    						}
    					]
    				},
@@ -61,7 +60,44 @@
 		 });
 	 },
 	 submit(){
-		 console.log(666)
+		 if(this.ischeck){
+			 uni.request({
+			     url: 'http://114.115.240.135:38091/user/c/login',
+			 	method:"POST",
+			     data: {
+			        userName:this.formData.account,
+			 		password:this.formData.password,
+			     },
+			     header: {
+			         "content-type":"application/json",
+			     },
+			     success: (res) => {
+			 		if(res.data.code=='00000'){
+			 			uni.setStorage({
+			 			  key: "token",
+			 			  data: res.data.data.token,
+			 			});
+						uni.setStorage({
+						  key: "userId",
+						  data: res.data.data.userId,
+						});
+						uni.switchTab({
+							url: '/pages/recognition/recognition'
+						});
+			 		} else {
+			 			uni.showToast({
+			 				title: '账号或密码错误',
+			 				icon:'error'
+			 			});
+			 		}
+			     }
+			 });
+		 }else{
+			 uni.showToast({
+			 	title: '请先同意用户隐私协议',
+			 	icon:'none'
+			 });
+		 }
 		 uni.switchTab({
 		 	url: '/pages/recognition/recognition'
 		 });
