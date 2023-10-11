@@ -34,19 +34,19 @@
 		<view>
 			<uni-popup ref="popup" background-color="#fff">
 				<view style="padding: 50px 30px;">
-					<uni-forms ref="baseForm" :modelValue="baseFormData" class="popup">
-						<uni-forms-item label="收件人" required>
+					<uni-forms ref="form" :modelValue="baseFormData" :rules="rules" class="popup">
+						<uni-forms-item name="name" label="收件人" required>
 							<uni-easyinput v-model="baseFormData.name" placeholder="请输入收件人姓名" />
 						</uni-forms-item>
-						<uni-forms-item label="电话" required>
+						<uni-forms-item name="phone" label="电话" required>
 							<uni-easyinput v-model="baseFormData.phone" placeholder="请输入电话" />
 						</uni-forms-item>
-						<uni-forms-item label="收货地" required>
+						<uni-forms-item name="address" label="收货地" required>
 							<uni-easyinput v-model="baseFormData.address" placeholder="请输入收货地址" />
 						</uni-forms-item>
 					</uni-forms>
 					<button type="primary" size="mini" style="float: right;"
-					@click="change"
+					@click="change()"
 					>一键兑换</button>
 				</view>
 			</uni-popup>
@@ -63,8 +63,37 @@
 					phone:'',
 					address:''
 				},
+				rules: {
+					name: {
+						rules: [{
+								required: true,
+								errorMessage: '请输入收件人',
+							}
+						]
+					},
+					phone: {
+						rules: [{
+								required: true,
+								errorMessage: '请输入电话',
+							},
+							{
+								minLength: 11,
+								maxLength: 11,
+								errorMessage: '请输入正确的手机号',
+							}
+						]
+					},
+					address: {
+						rules: [{
+								required: true,
+								errorMessage: '请输入收件地址',
+							}
+						]
+					},
+				},
 				giftId:0,
-				score:200,
+				userId:0,
+				score:0,
 				gifts:[
 					{
 						id: 1,
@@ -86,18 +115,22 @@
 					},
 					{
 						id: 4,
-						name: "20000碳素签字笔",
+						name: "碳素签字笔",
 						credit: 100,
 						src:'../../static/object3.png'
 					},
 					{
 						id: 5,
-						name: "毛绒玩具毫安充电宝",
+						name: "毛绒玩具",
 						credit: 1000,
 						src:'../../static/object4.png'
 					}
 				]
 			}
+		},
+		onLoad() {
+			this.userId = 1;
+			this.getScore()
 		},
 		methods: {
 			toggle(id,credit) {
@@ -112,36 +145,62 @@
 					this.$refs.popup.open()
 				}
 			},
-			change(val) {
-				let userId = uni.getStorageSync("userId");
+			change() {
+				this.$refs.form.validate().then(res=>{
+					uni.request({
+					    url: 'http://114.115.240.135:38091/shop/convent',
+						method:"POST",
+					    data: {
+					       userId: this.userId,
+						   giftId: this.giftId,
+						   receiver: this.baseFormData.name,
+						   address: this.baseFormData.address,
+						   phone: this.baseFormData.phone
+					    },
+					    header: {
+					        "content-type":"application/json",
+					    },
+					    success: (res) => {
+							if(res.data.code=='00000'){
+								uni.showToast({
+									title: '兑换成功'
+								});
+								this.getScore()
+								this.$refs.popup.close()
+							} else {
+								uni.showToast({
+									title: res.data.message,
+									icon:'none'
+								});
+							}
+					    }
+					});
+				}).catch(err =>{
+					console.log('表单错误信息：', err);
+				})
+			},
+			getScore(){
 				uni.request({
-				    url: 'http://114.115.240.135:38091/shop/convent',
-					method:"POST",
+				    url: 'http://114.115.240.135:38091/user/c/credit',
+					method:"GET",
 				    data: {
-				       userId: userId,
-					   giftId: this.giftId,
-					   receiver: this.baseFormData.name,
-					   address: this.baseFormData.address,
-					   phone: this.baseFormData.phone
+				       userId: this.userId
 				    },
 				    header: {
 				        "content-type":"application/json",
 				    },
 				    success: (res) => {
 						if(res.data.code=='00000'){
-							uni.showToast({
-								title: '兑换成功'
-							});
-							this.$refs.popup.close()
+							this.score=res.data.data.credit
 						} else {
 							uni.showToast({
-								title: '兑换出现错误',
-								icon:'error'
+								title: res.data.message,
+								icon:'none'
 							});
 						}
 				    }
 				});
-			},
+			}
 		}
 	}
 </script>

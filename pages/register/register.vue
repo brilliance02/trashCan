@@ -45,6 +45,13 @@
    						}
    					]
    				},
+				password: {
+					rules: [{
+							required: true,
+							errorMessage: '请输入密码',
+						}
+					]
+				},
    			}
    		}
    	},
@@ -54,37 +61,41 @@
        console.log(this.ischeck);
      },
 	 submit(){
-		 if(this.ischeck){
+		 this.$refs.form.validate().then(res=>{
+			if(this.ischeck){
 			 uni.request({
-			    url: 'http://114.115.240.135:38091/user/c/regist',
-			 	method:"POST",
-			    data: {
-			        username:this.formData.account,
-			 		password:this.formData.password,
-			     },
-			     header: {
-			         "content-type":"application/json",
-			     },
-			     success: (res) => {
-			 		if(res.data.code=='00000'){
-			 			console.log(res.data);
-			 			uni.showToast({
-			 				title: '注册成功'
-			 			});
-			 		} else {
-			 			uni.showToast({
-			 				title: '注册失败',
-			 				icon:'error'
-			 			});
-			 		}
-			     }
+				url: 'http://114.115.240.135:38091/user/c/regist',
+				method:"POST",
+				data: {
+					username:this.formData.account,
+					password:this.formData.password,
+				 },
+				 header: {
+					 "content-type":"application/json",
+				 },
+				 success: (res) => {
+					if(res.data.code=='00000'){
+						uni.showToast({
+							title: '注册成功'
+						});
+					} else {
+						uni.showToast({
+							title: res.data.message,
+							icon:'error'
+						});
+					}
+				 }
 			 });
-		 }else{
+			}else{
 			 uni.showToast({
-			 	title: '请先同意用户隐私协议',
-			 	icon:'none'
+				title: '请先同意用户隐私协议',
+				icon:'none'
 			 });
-		 }
+			}
+		}).catch(err =>{
+			console.log('表单错误信息：', err);
+		})
+		 
 	 },
 	 goLogin(){
 		 uni.redirectTo({

@@ -44,25 +44,25 @@
 		</view>
 		<view class="article">
 			<view class="news" style="margin-top: 0;">
-				<view class="text">
+				<uni-link href="http://health.people.com.cn/n1/2022/0124/c14739-32338084.html" class="text">
 					垃圾分类，人人受益
-				</view>
+				</uni-link>
 				<view class="text2">
 					　如今，垃圾分类在全国多地深入实施。然而，现实中一些居民还未参与到垃圾分类中...
 				</view>
 			</view>
 			<view class="news">
-				<view class="text">
+				<uni-link href="http://opinion.people.com.cn/n1/2023/0524/c223228-32693808.html" class="text">
 					推动垃圾分类成为低碳生活新时尚
-				</view>
+				</uni-link>
 				<view class="text2">
 					　垃圾分类、节约资源，变废为宝、利国利民。实行垃圾分类，关系广大人民群众生活环境...
 				</view>
 			</view>
 			<view class="news">
-				<view class="text">
+				<uni-link href="https://zhuanlan.zhihu.com/p/519243237" class="text">
 					2021在垃圾分类领域出台的政策
-				</view>
+				</uni-link>
 				<view class="text2">
 					　“十四五”时期，生活垃圾分类和处理设施建设进入关键时期。推动实施生态环境高水平保护...
 				</view>
@@ -130,7 +130,7 @@
 .article{
 	padding-bottom: 40px;
 	.news{
-		height: 100px;
+		height: 80px;
 		width: 84%;
 		margin: 0 auto;
 		border-radius: 10px;
