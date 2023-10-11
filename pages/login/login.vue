@@ -46,6 +46,13 @@
    						}
    					]
    				},
+				password: {
+					rules: [{
+							required: true,
+							errorMessage: '请输入密码',
+						}
+					]
+				},
    			}
    		}
    	},
@@ -60,23 +67,24 @@
 		 });
 	 },
 	 submit(){
-		 if(this.ischeck){
+		 this.$refs.form.validate().then(res=>{
+			if(this.ischeck){
 			 uni.request({
-			     url: 'http://114.115.240.135:38091/user/c/login',
-			 	method:"POST",
-			     data: {
-			        userName:this.formData.account,
-			 		password:this.formData.password,
-			     },
-			     header: {
-			         "content-type":"application/json",
-			     },
-			     success: (res) => {
-			 		if(res.data.code=='00000'){
-			 			uni.setStorage({
-			 			  key: "token",
-			 			  data: res.data.data.token,
-			 			});
+				 url: 'http://114.115.240.135:38091/user/c/login',
+				method:"POST",
+				 data: {
+					username:this.formData.account,
+					password:this.formData.password,
+				 },
+				 header: {
+					 "content-type":"application/json",
+				 },
+				 success: (res) => {
+					if(res.data.code=='00000'){
+						uni.setStorage({
+						  key: "token",
+						  data: res.data.data.token,
+						});
 						uni.setStorage({
 						  key: "userId",
 						  data: res.data.data.userId,
@@ -84,23 +92,23 @@
 						uni.switchTab({
 							url: '/pages/recognition/recognition'
 						});
-			 		} else {
-			 			uni.showToast({
-			 				title: '账号或密码错误',
-			 				icon:'error'
-			 			});
-			 		}
-			     }
+					} else {
+						uni.showToast({
+							title: res.data.message,
+							icon:'none'
+						});
+					}
+				 }
 			 });
-		 }else{
+			}else{
 			 uni.showToast({
-			 	title: '请先同意用户隐私协议',
-			 	icon:'none'
+				title: '请先同意用户隐私协议',
+				icon:'none'
 			 });
-		 }
-		 uni.switchTab({
-		 	url: '/pages/recognition/recognition'
-		 });
+			}
+		}).catch(err =>{
+			console.log('表单错误信息：', err);
+		})
 	 }
     }
   }
