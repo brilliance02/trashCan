@@ -14,83 +14,19 @@
 			好物兑换
 		</view>
 		<view class="goods">
-			<view class="item">
+			<view class="item" v-for="(item,index) in gifts" :key="index">
 				<image
-					src="@/static/phone.png" 
+					:src="item.src" 
 					mode="scaleToFill"
 					style="width: 100px;height: 100px;margin-top: 30px;"
 				></image>
 				<view class="name">
-					头戴式蓝牙耳机
+					{{item.name}}
 				</view>
 				<view class="price">
-					1000分
+					{{item.credit}}分
 				</view>
-				<view class="btn" @click="toggle()">
-					兑换
-				</view>
-			</view>
-			<view class="item" >
-				<image
-					src="@/static/object.png" 
-					mode="scaleToFill"
-					style="width: 100px;height: 100px;margin-top: 30px;"
-				></image>
-				<view class="name">
-					保温水杯
-				</view>
-				<view class="price">
-					200分
-				</view>
-				<view class="btn"  @click="toggle()">
-					兑换
-				</view>
-			</view>
-			<view class="item">
-				<image
-					src="@/static/object2.png" 
-					mode="scaleToFill"
-					style="width: 100px;height: 100px;margin-top: 30px;"
-				></image>
-				<view class="name">
-					20000毫安充电宝
-				</view>
-				<view class="price">
-					500分
-				</view>
-				<view class="btn"  @click="toggle()">
-					兑换
-				</view>
-			</view>
-			<view class="item">
-				<image
-					src="@/static/object3.png" 
-					mode="scaleToFill"
-					style="width: 100px;height: 100px;margin-top: 30px;"
-				></image>
-				<view class="name">
-					碳素签字笔
-				</view>
-				<view class="price">
-					100分
-				</view>
-				<view class="btn" @click="toggle()">
-					兑换
-				</view>
-			</view>
-			<view class="item">
-				<image
-					src="@/static/object4.png" 
-					mode="scaleToFill"
-					style="width: 100px;height: 100px;margin-top: 30px;"
-				></image>
-				<view class="name">
-					毛绒玩具
-				</view>
-				<view class="price">
-					500分
-				</view>
-				<view class="btn" @click="toggle()">
+				<view class="btn" @click="toggle(item.id,item.credit)">
 					兑换
 				</view>
 			</view>
@@ -127,12 +63,46 @@
 					phone:'',
 					address:''
 				},
-				score:200
+				giftId:0,
+				score:200,
+				gifts:[
+					{
+						id: 1,
+						name: "头戴式蓝牙耳机",
+						credit: 1000,
+						src:'../../static/phone.png'
+					},
+					{
+						id: 2,
+						name: "保温水杯",
+						credit: 200,
+						src:'../../static/object.png'
+					},
+					{
+						id: 3,
+						name: "20000毫安充电宝",
+						credit: 500,
+						src:'../../static/object2.png'
+					},
+					{
+						id: 4,
+						name: "20000碳素签字笔",
+						credit: 100,
+						src:'../../static/object3.png'
+					},
+					{
+						id: 5,
+						name: "毛绒玩具毫安充电宝",
+						credit: 1000,
+						src:'../../static/object4.png'
+					}
+				]
 			}
 		},
 		methods: {
-			toggle() {
-				if(3<2){
+			toggle(id,credit) {
+				this.giftId=id;
+				if(this.score<credit){
 					uni.showToast({
 						title: '积分不足',
 						icon:'error',
@@ -143,10 +113,33 @@
 				}
 			},
 			change(val) {
-				console.log(555)
-				uni.showToast({
-					title: '兑换成功',
-					duration: 2000
+				let userId = uni.getStorageSync("userId");
+				uni.request({
+				    url: 'http://114.115.240.135:38091/shop/convent',
+					method:"POST",
+				    data: {
+				       userId: userId,
+					   giftId: this.giftId,
+					   receiver: this.baseFormData.name,
+					   address: this.baseFormData.address,
+					   phone: this.baseFormData.phone
+				    },
+				    header: {
+				        "content-type":"application/json",
+				    },
+				    success: (res) => {
+						if(res.data.code=='00000'){
+							uni.showToast({
+								title: '兑换成功'
+							});
+							this.$refs.popup.close()
+						} else {
+							uni.showToast({
+								title: '兑换出现错误',
+								icon:'error'
+							});
+						}
+				    }
 				});
 			},
 		}
