@@ -8,18 +8,15 @@
 					style="width: 300px;height: 300px;border-radius: 20px;margin: 0 auto;"
 					></image>
 				<view class="text">
-					{{text}}
+					{{ text }}
 				</view>
 			</view>
 		</view>
 		<view class="noSearch" v-if="!show">
 			<view>
-				<image
-					src="../../../static/none.png" 
-					mode="aspectFill" 
-					></image>
+				<image src="../../../static/none.png" mode="aspectFill"></image>
 				<view class="text">
-					{{text}}
+					{{ text }}
 				</view>
 			</view>
 		</view>
@@ -52,13 +49,41 @@
 					success: function (res) {
 						console.log(JSON.stringify(res.tempFilePaths));
 						_self.filePath=res.tempFilePaths[0]
-						_self.identify()
+						//另一种请求方式
+						// _self.identify()
+						uni.uploadFile({
+						  url: "https://rmb.sipcoj.com/garbage/identify", 
+						  filePath: _self.filePath,
+						  name: "file",
+						  formData: {
+						    userId:_self.userId,
+						    garbageId:2
+						  },
+						  header: {
+						    "content-type": "multipart/form-data",
+						  },
+						  success: (res) => {
+								if(res.data.code=='00000'){
+									this.show=true
+									var list=res.data.data.list
+									this.src=res.data.data.url
+									this.text='此图片中包含有'
+									for(var i=0;i<list.length;i++){
+										this.text=this.text+list[i]+' '
+									}
+								} else {
+									this.show=false
+									this.src='../../../static/3.png'
+									this.text='暂时木有内容呀～～'
+								}
+							}
+						});
 					}
 				});
 			},
 			identify(){
 				uni.request({
-					url: 'http://114.115.240.135:38091/garbage/identify',
+					url: 'https://rmb.sipcoj.com/garbage/identify',
 					method:"POST",
 					data: {
 						file:this.filePath,
@@ -66,7 +91,7 @@
 						garbageId:2
 					 },
 					 header: {
-						 "content-type":"application/json",
+						 "content-type":"multipart/form-data",
 					 },
 					 success: (res) => {
 						if(res.data.code=='00000'){
@@ -93,14 +118,15 @@
 </script>
 
 <style scoped lang="scss">
-.noSearch{
+.noSearch {
 	height: 50vh;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	margin-top: 50px;
 }
-.result{
+
+.result {
 	// background-color: firebrick;
 	height: 50vh;
 	margin-top: 70px;
@@ -108,20 +134,23 @@
 	justify-content: center;
 	align-items: center;
 }
-.text{
+
+.text {
 	text-align: center;
 	padding: 0 30px;
 	margin-top: 30px;
 	font-size: 20px;
 	color: #606266;
 }
-.btn{
+
+.btn {
 	// background-color: orange;
 	position: fixed;
 	bottom: 20vh;
 	height: 45px;
 	width: 100%;
-	.pic{
+
+	.pic {
 		text-align: center;
 		font-size: 20px;
 		width: 88%;

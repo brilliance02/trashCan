@@ -148,7 +148,7 @@
 			change() {
 				this.$refs.form.validate().then(res=>{
 					uni.request({
-					    url: 'http://114.115.240.135:38091/shop/convent',
+					    url: 'https://rmb.sipcoj.com/shop/convent',
 						method:"POST",
 					    data: {
 					       userId: this.userId,
@@ -181,7 +181,7 @@
 			},
 			getScore(){
 				uni.request({
-				    url: 'http://114.115.240.135:38091/user/c/credit',
+				    url: 'https://rmb.sipcoj.com/user/c/credit',
 					method:"GET",
 				    data: {
 				       userId: this.userId

@@ -35,7 +35,7 @@
 		methods: {
 			search(){
 				uni.request({
-				   url: 'http://114.115.240.135:38091/user/c/search',
+				   url: 'https://rmb.sipcoj.com/user/c/search',
 					method:"GET",
 				   data: {
 				       content:this.searchValue
