@@ -1,11 +1,11 @@
 <template>
 	<view>
 		<view class="result" v-if="show">
-			<view>
+			<view style="text-align: center;">
 				<image
 					:src="src" 
 					mode="scaleToFill"
-					style="width: 300px;height: 300px;border-radius: 20px;"
+					style="width: 300px;height: 300px;border-radius: 20px;margin: 0 auto;"
 					></image>
 				<view class="text">
 					{{text}}
@@ -37,23 +37,57 @@
 			return {
 				show:false,
 				src:'../../../static/3.png',
-				text:'暂时木有内容呀～～'
+				text:'暂时木有内容呀～～',
+				userId:0,
+				filePath:''
 			}
 		},
 		methods: {
 			takePicture(){
+				let _self=this
 				uni.chooseImage({
-					count: 1, //默认9
-					sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
-					sourceType: ['camera'], //从相册选择
+					count: 1,
+					sizeType: ['original', 'compressed'],
+					sourceType: ['camera'],
 					success: function (res) {
 						console.log(JSON.stringify(res.tempFilePaths));
+						_self.filePath=res.tempFilePaths[0]
+						_self.identify()
 					}
 				});
-			}
+			},
+			identify(){
+				uni.request({
+					url: 'http://114.115.240.135:38091/garbage/identify',
+					method:"POST",
+					data: {
+						file:this.filePath,
+						userId:this.userId,
+						garbageId:2
+					 },
+					 header: {
+						 "content-type":"application/json",
+					 },
+					 success: (res) => {
+						if(res.data.code=='00000'){
+							this.show=true
+							var list=res.data.data.list
+							this.src=res.data.data.url
+							this.text='此图片中包含有'
+							for(var i=0;i<list.length;i++){
+								this.text=this.text+list[i]+' '
+							}
+						} else {
+							this.show=false
+							this.src='../../../static/3.png'
+							this.text='暂时木有内容呀～～'
+						}
+					 }
+				});
+			},
 		},
-		onLaunch() {
-			
+		onLoad() {
+			this.userId = uni.getStorageSync('userId');
 		}
 	}
 </script>
@@ -76,6 +110,7 @@
 }
 .text{
 	text-align: center;
+	padding: 0 30px;
 	margin-top: 30px;
 	font-size: 20px;
 	color: #606266;

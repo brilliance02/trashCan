@@ -129,7 +129,7 @@
 			}
 		},
 		onLoad() {
-			this.userId = 1;
+			this.userId = uni.getStorageSync('userId');
 			this.getScore()
 		},
 		methods: {
