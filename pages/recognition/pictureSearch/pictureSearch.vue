@@ -5,7 +5,7 @@
 				<image
 					:src="src" 
 					mode="scaleToFill"
-					style="width: 300px;height: 300px;border-radius: 20px;margin: 0 auto;"
+					style="width: 300px;height: 400px;border-radius: 20px;margin: 0 auto;"
 					></image>
 				<view class="text">
 					{{ text }}
@@ -49,8 +49,9 @@
 					success: function (res) {
 						// console.log(JSON.stringify(res.tempFilePaths));
 						_self.filePath=res.tempFilePaths[0]
-						//另一种请求方式
-						// _self.identify()
+						uni.showLoading({
+							title: '识别中'
+						})
 						uni.uploadFile({
 						  url: "https://rmb.sipcoj.com/garbage/identify", 
 						  filePath: _self.filePath,
@@ -63,10 +64,15 @@
 						    "content-type": "multipart/form-data",
 						  },
 						  success: (res) => {
-								if(res.data.code=='00000'){
+							  uni.hideLoading();
+							  // console.log(res.data)
+							  // console.log(JSON.parse(res.data))
+							  let identify=JSON.parse(res.data)
+								if(identify.code=='00000'){
 									_self.show=true
-									var list=res.data.data.list
-									_self.src=res.data.data.url
+									var list1=identify.data.list
+									var list = Array.from(new Set(list1))
+									_self.src=identify.data.url
 									_self.text='此图片中包含有'
 									for(var i=0;i<list.length;i++){
 										_self.text=_self.text+list[i]+' '
@@ -76,38 +82,16 @@
 									_self.src='../../../static/3.png'
 									_self.text='暂时木有内容呀～～'
 								}
-							}
+							},
+							fail: (err) => {
+								uni.hideLoading();
+								uni.showToast({
+									content: '识别失败',
+									icon: 'error'
+								});
+							},
 						});
 					}
-				});
-			},
-			identify(){
-				uni.request({
-					url: 'https://rmb.sipcoj.com/garbage/identify',
-					method:"POST",
-					data: {
-						file:this.filePath,
-						userId:this.userId,
-						garbageId:2
-					 },
-					 header: {
-						 "content-type":"multipart/form-data",
-					 },
-					 success: (res) => {
-						if(res.data.code=='00000'){
-							this.show=true
-							var list=res.data.data.list
-							this.src=res.data.data.url
-							this.text='此图片中包含有'
-							for(var i=0;i<list.length;i++){
-								this.text=this.text+list[i]+' '
-							}
-						} else {
-							this.show=false
-							this.src='../../../static/3.png'
-							this.text='暂时木有内容呀～～'
-						}
-					 }
 				});
 			},
 		},
@@ -128,7 +112,7 @@
 
 .result {
 	// background-color: firebrick;
-	height: 50vh;
+	height: 55vh;
 	margin-top: 70px;
 	display: flex;
 	justify-content: center;
@@ -146,7 +130,7 @@
 .btn {
 	// background-color: orange;
 	position: fixed;
-	bottom: 20vh;
+	bottom: 17vh;
 	height: 45px;
 	width: 100%;
 
