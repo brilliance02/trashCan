@@ -47,7 +47,7 @@
 					sizeType: ['original', 'compressed'],
 					sourceType: ['camera'],
 					success: function (res) {
-						console.log(JSON.stringify(res.tempFilePaths));
+						// console.log(JSON.stringify(res.tempFilePaths));
 						_self.filePath=res.tempFilePaths[0]
 						//另一种请求方式
 						// _self.identify()
@@ -64,17 +64,17 @@
 						  },
 						  success: (res) => {
 								if(res.data.code=='00000'){
-									this.show=true
+									_self.show=true
 									var list=res.data.data.list
-									this.src=res.data.data.url
-									this.text='此图片中包含有'
+									_self.src=res.data.data.url
+									_self.text='此图片中包含有'
 									for(var i=0;i<list.length;i++){
-										this.text=this.text+list[i]+' '
+										_self.text=_self.text+list[i]+' '
 									}
 								} else {
-									this.show=false
-									this.src='../../../static/3.png'
-									this.text='暂时木有内容呀～～'
+									_self.show=false
+									_self.src='../../../static/3.png'
+									_self.text='暂时木有内容呀～～'
 								}
 							}
 						});
