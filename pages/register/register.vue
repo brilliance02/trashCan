@@ -64,7 +64,7 @@
 		 this.$refs.form.validate().then(res=>{
 			if(this.ischeck){
 			 uni.request({
-				url: 'http://114.115.240.135:38091/user/c/regist',
+				url: 'https://rmb.sipcoj.com/user/c/regist',
 				method:"POST",
 				data: {
 					username:this.formData.account,
@@ -78,6 +78,7 @@
 						uni.showToast({
 							title: '注册成功'
 						});
+            this.goLogin();
 					} else {
 						uni.showToast({
 							title: res.data.message,
