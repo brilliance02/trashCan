@@ -68,7 +68,7 @@ export default {
     getList() {
       uni.request({
         url:
-          "http://114.115.240.135:38091/garbage/info?garbageId=" +
+          "https://rmb.sipcoj.com/garbage/info?garbageId=" +
           this.garbageId,
         method: "GET",
         header: {

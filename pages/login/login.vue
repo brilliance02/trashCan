@@ -70,7 +70,7 @@
 		 this.$refs.form.validate().then(res=>{
 			if(this.ischeck){
 			 uni.request({
-				 url: 'http://114.115.240.135:38091/user/c/login',
+				 url: 'https://rmb.sipcoj.com/user/c/login',
 				method:"POST",
 				 data: {
 					username:this.formData.account,

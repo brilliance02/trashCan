@@ -1,8 +1,12 @@
 <template>
 	<view>
 		<view class="result" v-if="show">
-			<view>
-				<image :src="src" mode="scaleToFill" style="width: 300px;height: 300px;border-radius: 20px;"></image>
+			<view style="text-align: center;">
+				<image
+					:src="src" 
+					mode="scaleToFill"
+					style="width: 300px;height: 300px;border-radius: 20px;margin: 0 auto;"
+					></image>
 				<view class="text">
 					{{ text }}
 				</view>
@@ -25,30 +29,92 @@
 </template>
 
 <script>
-export default {
-	data() {
-		return {
-			show: false,
-			src: '../../../static/3.png',
-			text: '暂时木有内容呀～～'
+	export default {
+		data() {
+			return {
+				show:false,
+				src:'../../../static/3.png',
+				text:'暂时木有内容呀～～',
+				userId:0,
+				filePath:''
+			}
+		},
+		methods: {
+			takePicture(){
+				let _self=this
+				uni.chooseImage({
+					count: 1,
+					sizeType: ['original', 'compressed'],
+					sourceType: ['camera'],
+					success: function (res) {
+						// console.log(JSON.stringify(res.tempFilePaths));
+						_self.filePath=res.tempFilePaths[0]
+						//另一种请求方式
+						// _self.identify()
+						uni.uploadFile({
+						  url: "https://rmb.sipcoj.com/garbage/identify", 
+						  filePath: _self.filePath,
+						  name: "file",
+						  formData: {
+						    userId:_self.userId,
+						    garbageId:2
+						  },
+						  header: {
+						    "content-type": "multipart/form-data",
+						  },
+						  success: (res) => {
+								if(res.data.code=='00000'){
+									_self.show=true
+									var list=res.data.data.list
+									_self.src=res.data.data.url
+									_self.text='此图片中包含有'
+									for(var i=0;i<list.length;i++){
+										_self.text=_self.text+list[i]+' '
+									}
+								} else {
+									_self.show=false
+									_self.src='../../../static/3.png'
+									_self.text='暂时木有内容呀～～'
+								}
+							}
+						});
+					}
+				});
+			},
+			identify(){
+				uni.request({
+					url: 'https://rmb.sipcoj.com/garbage/identify',
+					method:"POST",
+					data: {
+						file:this.filePath,
+						userId:this.userId,
+						garbageId:2
+					 },
+					 header: {
+						 "content-type":"multipart/form-data",
+					 },
+					 success: (res) => {
+						if(res.data.code=='00000'){
+							this.show=true
+							var list=res.data.data.list
+							this.src=res.data.data.url
+							this.text='此图片中包含有'
+							for(var i=0;i<list.length;i++){
+								this.text=this.text+list[i]+' '
+							}
+						} else {
+							this.show=false
+							this.src='../../../static/3.png'
+							this.text='暂时木有内容呀～～'
+						}
+					 }
+				});
+			},
+		},
+		onLoad() {
+			this.userId = uni.getStorageSync('userId');
 		}
-	},
-	methods: {
-		takePicture() {
-			uni.chooseImage({
-				count: 1, //默认9
-				sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
-				sourceType: ['camera'], //从相册选择
-				success: function (res) {
-					console.log(JSON.stringify(res.tempFilePaths));
-				}
-			});
-		}
-	},
-	onLaunch() {
-
 	}
-}
 </script>
 
 <style scoped lang="scss">
@@ -71,6 +137,7 @@ export default {
 
 .text {
 	text-align: center;
+	padding: 0 30px;
 	margin-top: 30px;
 	font-size: 20px;
 	color: #606266;
